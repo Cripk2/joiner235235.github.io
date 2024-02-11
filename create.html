@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dark Admin Dashboard</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        .container-fluid {
+            overflow: hidden; /* Hide vertical scrollbar */
+        }
+
+        .sidebar {
+            background-color: #333;
+            color: #fff;
+            height: 100vh;
+            width: 200px; /* Adjusted width */
+            overflow-y: auto; /* Add vertical scrollbar only to sidebar */
+            position: fixed;
+            top: 56px;
+        }
+
+        .sidebar a {
+            color: #fff !important; /* Set link color to white */
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            display: block;
+            margin-bottom: 5px; /* Adjusted margin-bottom */
+        }
+
+        .sidebar a:hover {
+            background-color: #555;
+        }
+
+        .navbar {
+            background-color: #222;
+            color: #fff;
+        }
+
+        .navbar a {
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #555;
+        }
+
+        .content {
+            margin-top: 20px;
+            margin-left: 220px; /* Adjusted margin-left to accommodate sidebar */
+        }
+
+        .background-pattern {
+            background-size: 60px 60px;
+            background-image: linear-gradient(90deg, rgba(84, 118, 242, .8) 2px, transparent 0), linear-gradient(180deg, rgba(84, 118, 242, .8) 2px, transparent 0);
+            -webkit-mask-image: linear-gradient(180deg, transparent, #000, transparent);
+            mask-image: linear-gradient(180deg, transparent, #000, transparent);
+        }
+
+        .discord-button {
+            background-color: #7289da;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 8px; /* Adjusted bottom value */
+            width: 10%; /* Make the button full width */
+            left: 70; /* Align to the left */
+            cursor: pointer;
+            border-radius: 10px; /* Make it rounded */
+        }
+
+
+        /* New Styles for Boxes */
+        .dashboard-box {
+            flex-direction: row;
+            justify-content: space-between;
+            background: linear-gradient(to right, #4CAF50, #2E8B57);
+            color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid #4CAF50;
+            margin-left: 0; /* Adjusted margin-left for the boxes */
+        }
+
+        /* Adjusted margin-top for the Dashboard item in the sidebar */
+        .sidebar .nav-item:first-child {
+            margin-top: 20px;
+        }
+
+        /* Additional Content Styles */
+        .additional-content {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            margin-left: 0px; /* Adjusted margin-left to match the content area */
+        }
+
+        /* Table Styles */
+        .table-responsive {
+            margin-bottom: 15px;
+        }
+
+        .table {
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border: none; /* Remove borders */
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border: none; /* Remove borders */
+        }
+
+        .table tbody + tbody {
+            border-top: none; /* Remove borders */
+        }
+
+        /* Navigation Buttons Styles */
+        .d-flex {
+            display: flex !important;
+        }
+
+        .justify-content-between {
+            justify-content: space-between !important;
+        }
+
+        .btn-outline-secondary {
+            color: #fff;
+            background-color: transparent;
+            background-image: none;
+            border-color: linear-gradient(to right, #4CAF50, #2E8B57);
+        }
+
+        .btn-outline-secondary:hover {
+            color: #333;
+            background-color: linear-gradient(to right, #4CAF50, #2E8B57);
+            border-color: linear-gradient(to right, #4CAF50, #2E8B57);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-2 d-none d-md-block sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ url_for('home') }}">
+                                <i class="fas fa-tachometer-alt"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('execute_command_form') }}">
+                                <i class="fas fa-shopping-cart"></i> Create Bot
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('upgrade') }}">
+                                <i class="fas fa-cog"></i> Upgrade
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-life-ring"></i> Support
+                            </a>
+                        </li>
+                    </ul>                    
+                    <div class="discord-button">
+                        Discord
+                    </div>
+                </div>
+            </nav>
+            
+            <!-- Main Content -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+                    <a class="navbar-brand" href="#">Dashboard</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">$0.00</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <!-- Boxes -->
+                <div class="content">
+                    <h2>Dashboard Content</h2>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-3">
+                        <div class="dashboard-box">
+                            <h3>Username</h3>
+                            <p class="placeholder">{{ current_user.username }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dashboard-box">
+                            <h3>Plan</h3>
+                            <p class="placeholder">{{ current_user.membership }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dashboard-box">
+                            <h3>Orders</h3>
+                            <p class="placeholder">0</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dashboard-box">
+                            <h3>Members</h3>
+                            <p class="placeholder">20,000</p>
+                        </div>
+                    </div>
+                </div>
+
+
+    <div class="form-container">
+        <h1>Create Bot</h1>
+        <form action="/execute_command" method="post">
+            <div class="form-group">
+                <label for="bot_token">Bot Name:</label>
+                <input type="text" class="form-control" id="bot_name" name="bot_name" required>
+            </div>
+            <div class="form-group">
+                <label for="bot_token">Bot Token:</label>
+                <input type="text" class="form-control" id="bot_token" name="bot_token" required>
+            </div>
+            <div class="form-group">
+                <label for="application_id">Application ID:</label>
+                <input type="text" class="form-control" id="application_id" name="application_id" required>
+            </div>
+            <div class="form-group">
+                <label for="public_key">Public Key:</label>
+                <input type="text" class="form-control" id="public_key" name="public_key" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Bot</button>
+        </form>
+        <h1>{{ registration_status }}</h1>
+    </div>
+
+    <!-- Bootstrap JS (optional, only needed if you use Bootstrap JS components) -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
